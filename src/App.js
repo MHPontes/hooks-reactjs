@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 function App() {
 
@@ -22,6 +22,8 @@ function App() {
     setInput('');  //limpa o input após adicionar a tarefa
   }
 
+  const totalTarefas = useMemo(() => tarefas.length, [tarefas]);  //useMemo é uma função que retorna um valor calculado, ele só é recalculado quando o valor de tarefas é alterado
+
   return (
     <div>
 
@@ -30,7 +32,9 @@ function App() {
           <li key={tarefa}>{tarefa}</li>  //key é um identificador único para cada item da lista
         ))}
       </ul>
-
+      <br/>
+      
+      <strong>Você tem {totalTarefas} tarefas!</strong> {/*totalTarefas é o valor calculado pelo useMemo*/}
       <input type="text" value={input} onChange={(e) => setInput(e.target.value)} />  {/*onChange é um evento que dispara a função setInput quando o valor do input é alterado*/}
       <button type="button" onClick={handleAd} >Adicionar tarefa</button> {/*onClick é um evento que dispara a função handleAd quando o botão é clicado*/}
 
